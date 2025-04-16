@@ -14,15 +14,15 @@ export default siteConfig({
   author: '©cafekinesi',
 
   // open graph metadata (optional)
-  description: 'Example Next.js Notion Starter Kit Site',
+  description: 'カフェで出来るキネシオロジー',
 
   // social usernames (optional)
-  twitter: 'transitive_bs',
-  github: 'transitive-bullshit',
-  linkedin: 'fisch2',
+  // twitter: 'transitive_bs',
+  // github: 'transitive-bullshit',
+  // linkedin: 'fisch2',
   instagram: 'your_instagram_username',
   facebook: 'your_facebook_username_or_page_id',
-  youtube: 'your_channel_id_or_name',
+  // youtube: 'your_channel_id_or_name',
   // mastodon: '#', // optional mastodon profile URL, provides link verification
   // newsletter: '#', // optional newsletter URL
   // youtube: '#', // optional youtube channel name or `channel/UCGbXXXXXXXXXXXXXXXXXXXXXX`

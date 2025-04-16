@@ -12,9 +12,20 @@ export const searchNotion = pMemoize(searchNotionImpl, {
 async function searchNotionImpl(
   params: types.SearchParams
 ): Promise<types.SearchResults> {
+  // クエリのロギング
+  console.log('Client search query:', params.query)
+  
+  // 検索パラメータの調整
+  if (!params.ancestorId && api.notionPageId) {
+    params.ancestorId = api.notionPageId
+  }
+  
+  // 複数のポイントでエラーの可能性を回避するために型アサーションを使用
+  const searchParams = params as any;
+  
   return fetch(api.searchNotion, {
     method: 'POST',
-    body: JSON.stringify(params),
+    body: JSON.stringify(searchParams),
     headers: {
       'content-type': 'application/json'
     }
@@ -27,13 +38,17 @@ async function searchNotionImpl(
       // convert non-2xx HTTP responses into errors
       const error: any = new Error(res.statusText)
       error.response = res
+      console.error('Search API error:', error)
       throw error
     })
     .then((res) => res.json())
-
-  // return ky
-  //   .post(api.searchNotion, {
-  //     json: params
-  //   })
-  //   .json()
+    .then((results) => {
+      // 結果のロギング
+      console.log(`Client received ${results.results?.length || 0} results for query: ${params.query}`)
+      return results
+    })
+    .catch((err) => {
+      console.error('Search request failed:', err)
+      return { results: [], total: 0, recordMap: { block: {} } } as types.SearchResults
+    })
 }
