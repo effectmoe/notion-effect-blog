@@ -1,5 +1,5 @@
 import ky from 'ky'
-import lqip from 'lqip-modern'
+// import lqip from 'lqip-modern' // 一時的に無効化
 import {
   type ExtendedRecordMap,
   type PreviewImage,
@@ -54,13 +54,14 @@ async function createPreviewImage(
     }
 
     const body = await ky(url).arrayBuffer()
-    const result = await lqip(body)
-    console.log('lqip', { ...result.metadata, url, cacheKey })
+    // const result = await lqip(body)
+    // console.log('lqip', { ...result.metadata, url, cacheKey })
 
+    // 一時的にダミーデータを返す
     const previewImage = {
-      originalWidth: result.metadata.originalWidth,
-      originalHeight: result.metadata.originalHeight,
-      dataURIBase64: result.metadata.dataURIBase64
+      originalWidth: 1200,
+      originalHeight: 630,
+      dataURIBase64: ''
     }
 
     try {
