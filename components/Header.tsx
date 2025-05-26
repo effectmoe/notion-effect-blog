@@ -12,16 +12,10 @@ import cs from 'classnames'
 import * as config from '@/lib/config'
 import { useDarkMode } from '@/lib/use-dark-mode'
 import styles from './Header.module.css'
+import { MenuItem } from '@/lib/menu-utils'
 import { notionViews } from '@/lib/notion-views'
 
-// ナビゲーションリンクの型定義
-type MenuItem = {
-  id: string
-  title: string
-  url: string
-}
-
-// notionViewsからメニュー項目に変換
+// notionViewsからフォールバック用メニュー項目を生成
 const DEFAULT_MENU_ITEMS: MenuItem[] = notionViews.map(view => ({
   id: view.id,
   title: view.name,
@@ -33,6 +27,8 @@ type HeaderProps = {
 }
 
 export function HeaderImpl({ menuItems = DEFAULT_MENU_ITEMS }: HeaderProps) {
+  // menuItemsがundefinedの場合はDEFAULT_MENU_ITEMSを使用する
+  const items = menuItems?.length ? menuItems : DEFAULT_MENU_ITEMS;
   const router = useRouter()
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -40,6 +36,9 @@ export function HeaderImpl({ menuItems = DEFAULT_MENU_ITEMS }: HeaderProps) {
   const [hasMounted, setHasMounted] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [isSearchVisible, setIsSearchVisible] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+  const [isSearching, setIsSearching] = useState(false)
 
   // マウント状態の確認
   useEffect(() => {
@@ -57,6 +56,55 @@ export function HeaderImpl({ menuItems = DEFAULT_MENU_ITEMS }: HeaderProps) {
     window.addEventListener('resize', checkIsMobile)
     return () => window.removeEventListener('resize', checkIsMobile)
   }, [])
+  
+  // 検索実行関数
+  const handleSearch = async (e) => {
+    e?.preventDefault()
+    
+    if (!searchQuery || searchQuery.trim().length < 2) {
+      return
+    }
+    
+    setIsSearching(true)
+    
+    try {
+      console.log('検索リクエスト送信:', { query: searchQuery.trim() })
+      
+      // 公式Notion APIを使用した検索エンドポイントを使用する
+      const response = await fetch('/api/direct-search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ query: searchQuery.trim() })
+      })
+      
+      if (!response.ok) {
+        throw new Error(`検索リクエストに失敗しました: ${response.status}`)
+      }
+      
+      const results = await response.json()
+      console.log('検索結果の詳細:', results)
+      console.log('検索結果の項目数:', results.results?.length || 0)
+      console.log('検索結果の構造:', JSON.stringify(results, null, 2))
+      
+      // results.resultsが配列であることを確認
+      const searchResultsArray = Array.isArray(results.results) ? results.results : []
+      setSearchResults(searchResultsArray)
+    } catch (error) {
+      console.error('検索エラー:', error)
+      setSearchResults([])
+    } finally {
+      setIsSearching(false)
+    }
+  }
+  
+  // Enterキーで検索実行
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch(e)
+    }
+  }
 
   // スクロール検出用のイベントリスナー
   useEffect(() => {
@@ -204,12 +252,120 @@ export function HeaderImpl({ menuItems = DEFAULT_MENU_ITEMS }: HeaderProps) {
         isSearchVisible ? styles.searchVisible : styles.searchHidden
       )}>
         <div className={styles.searchContainer}>
-          <input 
-            type="text" 
-            className={styles.searchInput} 
-            placeholder="検索..."
-            aria-label="検索"
-          />
+          <form onSubmit={handleSearch} className={styles.searchForm}>
+            <input 
+              type="text" 
+              className={styles.searchInput} 
+              placeholder="検索..."
+              aria-label="検索"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            <button 
+              type="submit" 
+              className={styles.searchButton}
+              disabled={isSearching || !searchQuery.trim()}
+            >
+              {isSearching ? '検索中...' : '検索'}
+            </button>
+          </form>
+          
+          {/* 検索結果 */}
+          {searchResults.length > 0 && (
+            <div className={styles.searchResults}>
+              <h3 className={styles.searchResultsTitle}>検索結果 ({searchResults.length}件)</h3>
+              <ul className={styles.searchResultsList}>
+                {searchResults.map((result: any) => {
+                  console.log('検索結果レンダリング:', result);
+                  
+                  // Notion APIの結果からデータを抽出
+                  const id = result.id;
+                  if (!id) {
+                    console.warn('検索結果にIDがありません:', result);
+                    return null;
+                  }
+                  
+                  // 公式APIのページオブジェクトからタイトルを取得する
+                  let title = '';
+                  let description = '';
+                  
+                  // 公式APIの構造の場合
+                  if (result.object === 'page') {
+                    // ページのタイトル取得試行
+                    if (result.properties && result.properties.title) {
+                      const titleProp = result.properties.title;
+                      if (titleProp.title && Array.isArray(titleProp.title)) {
+                        title = titleProp.title.map(t => t.plain_text || '').join('');
+                      }
+                    }
+                    // ページの親がデータベースの場合
+                    else if (result.parent && result.parent.database_id) {
+                      // このページには他の方法でタイトルを取得する必要がある
+                      title = '無題のページ'; // デフォルト
+                    }
+                  } 
+                  // 旧APIや他の形式の互換性
+                  else {
+                    if (result.properties?.title) {
+                      const titleProp = result.properties.title;
+                      if (Array.isArray(titleProp)) {
+                        title = titleProp.map((t: any) => t[0]).join('');
+                      } else if (titleProp.title) {
+                        title = titleProp.title.map((t: any) => t.plain_text).join('');
+                      }
+                    } else if (result.title) {
+                      if (Array.isArray(result.title)) {
+                        title = result.title.map((t: any) => t[0]).join('');
+                      } else {
+                        title = result.title;
+                      }
+                    }
+                  }
+                  
+                  // 最終的にタイトルの安全確保
+                  if (!title || title.trim() === '') {
+                    title = 'Notionページ';
+                  }
+                  
+                  // 結果と一緒に提供されるURLを使用する
+                  const url = result.url || `/${id}`;
+                  
+                  return (
+                    <li key={id} className={styles.searchResultItem}>
+                      <a 
+                        href={url} 
+                        className={styles.searchResultLink}
+                        onClick={() => {
+                          setIsSearchVisible(false);
+                          setSearchQuery('');
+                          setSearchResults([]);
+                        }}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <div className={styles.searchResultTitle}>
+                          {title}
+                        </div>
+                        {description && (
+                          <div className={styles.searchResultDescription}>
+                            {description}
+                          </div>
+                        )}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+          
+          {/* 検索結果がない場合のメッセージ */}
+          {searchQuery.trim().length > 1 && searchResults.length === 0 && !isSearching && (
+            <div className={styles.noResults}>
+              検索結果が見つかりませんでした
+            </div>
+          )}
         </div>
       </div>
 
@@ -220,7 +376,7 @@ export function HeaderImpl({ menuItems = DEFAULT_MENU_ITEMS }: HeaderProps) {
       )}>
         <nav className={styles.mobileNav}>
           <ul className={styles.mobileNavList}>
-            {menuItems.map((item) => (
+            {items.map((item) => (
               <li key={item.id} className={styles.mobileNavItem}>
                 <Link 
                   href={item.url} 
@@ -230,6 +386,9 @@ export function HeaderImpl({ menuItems = DEFAULT_MENU_ITEMS }: HeaderProps) {
                   )}
                   onClick={handleMenuItemClick}
                 >
+                  {item.emoji && (
+                    <span className={styles.menuItemEmoji}>{item.emoji}</span>
+                  )}
                   {item.title}
                 </Link>
               </li>

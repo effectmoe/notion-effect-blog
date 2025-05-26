@@ -24,11 +24,25 @@
   background-color: var(--bg-color);
 }
 
-/* Notionページコンテナ - ヘッダー用のスペースを確保 */
+/* ヘッダーがfixedなのでコンテンツにMarginを追加 */
 .notionPageContainer {
-  padding-top: 60px; /* カスタムヘッダーの高さ分のスペースを確保 */
-  position: relative; /* z-indexの基準にする */
-  z-index: 1000; /* Notionコンテンツの重ね順を設定 */
+  margin-top: 60px; /* ヘッダーの高さに合わせる */
+  min-height: calc(100vh - 60px);
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+  .notionPageContainer {
+    margin-top: 55px;
+    min-height: calc(100vh - 55px);
+  }
+}
+
+@media (max-width: 480px) {
+  .notionPageContainer {
+    margin-top: 50px;
+    min-height: calc(100vh - 50px);
+  }
 }
 
 .loadingIcon {
@@ -274,17 +288,4 @@ a.facebook:hover {
 }
 .social a.facebook svg {
   fill: currentColor;
-}
-
-/* モバイル調整 */
-@media only screen and (max-width: 768px) {
-  .notionPageContainer {
-    padding-top: 55px; /* モバイル用のパディング調整 */
-  }
-}
-
-@media only screen and (max-width: 480px) {
-  .notionPageContainer {
-    padding-top: 50px; /* 小型スマホ用のパディング調整 */
-  }
 }

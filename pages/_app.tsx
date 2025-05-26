@@ -20,7 +20,6 @@ import posthog from 'posthog-js'
 import * as React from 'react'
 
 import { bootstrap } from '@/lib/bootstrap-client'
-// import { addHomeLinkToPageTitle } from '@/lib/add-home-link'
 import {
   fathomConfig,
   fathomId,
@@ -28,12 +27,22 @@ import {
   posthogConfig,
   posthogId
 } from '@/lib/config'
+import { getMenuItemsForStaticProps } from '@/lib/menu-utils'
+import FontStyler from '@/components/FontStyler'
 
 if (!isServer) {
   bootstrap()
 }
 
-export default function App({ Component, pageProps }: AppProps) {
+// カスタムAppPropsの型定義を追加
+type CustomAppProps = AppProps & {
+  pageProps: {
+    menuItems?: any[]
+    [key: string]: any
+  }
+}
+
+export default function App({ Component, pageProps }: CustomAppProps) {
   const router = useRouter()
 
   React.useEffect(() => {
@@ -45,9 +54,6 @@ export default function App({ Component, pageProps }: AppProps) {
       if (posthogId) {
         posthog.capture('$pageview')
       }
-
-      // ページが変わるたびにページタイトルにリンクを追加 (無効化)
-      // addHomeLinkToPageTitle()
     }
 
     if (fathomId) {
@@ -60,13 +66,45 @@ export default function App({ Component, pageProps }: AppProps) {
 
     router.events.on('routeChangeComplete', onRouteChangeComplete)
 
-    // 初回ロード時にもリンクを追加 (無効化)
-    // addHomeLinkToPageTitle()
-
     return () => {
       router.events.off('routeChangeComplete', onRouteChangeComplete)
     }
   }, [router.events])
 
-  return <Component {...pageProps} />
+  // FontStylerコンポーネントを追加してフォントをカスタマイズ
+  return (
+    <>
+      <FontStyler />
+      <Component {...pageProps} />
+    </>
+  )
+}
+
+// サーバーサイドでメニュー項目を取得
+App.getInitialProps = async (appContext: any) => {
+  // 元のgetInitialPropsを実行
+  const appProps = appContext.Component.getInitialProps
+    ? await appContext.Component.getInitialProps(appContext.ctx)
+    : {}
+
+  // Notionからメニュー項目を取得
+  try {
+    const menuItems = await getMenuItemsForStaticProps()
+    
+    // メニュー項目をページProps全体に追加
+    return {
+      pageProps: {
+        ...appProps,
+        menuItems
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching menu items:', error)
+    return {
+      pageProps: {
+        ...appProps,
+        menuItems: []
+      }
+    }
+  }
 }

@@ -70,45 +70,84 @@ export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
   return recordMap
 }
 
-export async function search(params: SearchParams): Promise<SearchResults> {
-  // rootNotionPageIdがなければ追加
-  if (!params.ancestorId) {
-    params.ancestorId = process.env.NOTION_PAGE_ID
-  }
+export async function search(params: SearchParams | { query: string }): Promise<SearchResults> {
+  // 環境変数の確認
+  console.log('NOTION_PAGE_ID:', process.env.NOTION_PAGE_ID);
+  console.log('rootNotionPageId:', process.env.NOTION_ROOT_PAGE_ID || 'not set');
   
-  // 検索フィルタの最適化
-  // 型エラーを回避するために型アサーションを使用
-  params.filters = {
-    ...(params.filters || {}),
-    isDeletedOnly: false,
-    excludeTemplates: true,
-    isNavigableOnly: false,    // falseに変更して検索範囲を広げる
-    requireEditPermissions: false,
-  } as any;  // 型アサーションを使用
+  // 検索パラメータの設定
+  // ancestorIdは必ず文字列を渡すようにする
+  const rootId = process.env.NOTION_PAGE_ID || '';
   
-  // 必要なカスタムプロパティを追加
-  (params.filters as any).includePublicPagesWithoutExplicitAccess = true;
-  (params.filters as any).ancestorIds = [process.env.NOTION_PAGE_ID];
+  const searchParams: SearchParams = {
+    query: params.query,
+    ancestorId: rootId,
+    filters: {
+      isDeletedOnly: false,
+      excludeTemplates: true,
+      isNavigableOnly: false,    // falseに変更して検索範囲を広げる
+      requireEditPermissions: false,
+      includePublicPagesWithoutExplicitAccess: true,
+      // ancestorIdsは検索範囲を広げるため一時的にコメントアウト
+      // ancestorIds: rootId ? [rootId] : undefined
+    } as any,
+    sort: {
+      field: 'relevance',
+      direction: 'desc'
+    },
+    limit: 100 // 検索結果を増やす
+  } as SearchParams;
   
   // クエリがない場合や短すぎる場合は空の結果を返す
-  if (!params.query || params.query.trim().length < 2) {
+  if (!searchParams.query || searchParams.query.trim().length < 2) {
     return { results: [], total: 0, recordMap: { block: {} } } as SearchResults
   }
 
-  // 検索クエリの前処理（必要に応じてコメントアウト解除）
-  // params.query = params.query.trim();
+  // クエリをトリム
+  searchParams.query = searchParams.query.trim();
   
-  // 検索結果の最大数を指定
-  params.limit = params.limit || 50;  // デフォルトより多くの結果を取得
-  
-  console.log('Search params:', JSON.stringify(params, null, 2));
+  console.log('検索パラメータ詳細:', JSON.stringify(searchParams, null, 2));
   
   try {
-    const results = await notion.search(params);
-    console.log(`Found ${results.results?.length || 0} results for query: ${params.query}`);
-    return results;
+    console.log('Notion API search実行...');
+    const results = await notion.search(searchParams);
+    
+    console.log('検索結果概要:', {
+      resultsCount: results?.results?.length || 0,
+      totalCount: results?.total || 0
+    });
+    
+    if (results?.results?.length === 0) {
+      console.log('検索結果が見つかりませんでした。検索クエリ:', params.query);
+      console.log('ancestorIdを外して再検索を試みます...');
+      
+      // ancestorIdを外して再検索
+      const searchParamsWithoutAncestor = {
+        ...searchParams,
+        ancestorId: undefined,
+        filters: {
+          ...searchParams.filters,
+          ancestorIds: undefined
+        } as any
+      };
+      
+      try {
+        const fallbackResults = await notion.search(searchParamsWithoutAncestor);
+        console.log('ancestorIdなしの検索結果:', {
+          resultsCount: fallbackResults?.results?.length || 0,
+          totalCount: fallbackResults?.total || 0
+        });
+        
+        return fallbackResults as SearchResults;
+      } catch (fallbackErr) {
+        console.error('ancestorIdなしの検索エラー:', fallbackErr);
+        return results as SearchResults;
+      }
+    }
+    
+    return results as SearchResults;
   } catch (err) {
-    console.error('Search error:', err);
+    console.error('Notion検索エラー:', err);
     return { results: [], total: 0, recordMap: { block: {} } } as SearchResults;
   }
 }

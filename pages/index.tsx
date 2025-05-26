@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react'
 import { NotionPage } from '@/components/NotionPage'
-import NotionViewTabs from '@/components/NotionViewTabs'
 import { domain } from '@/lib/config'
 import { resolveNotionPage } from '@/lib/resolve-notion-page'
-import { notionViews } from '@/lib/notion-views'
 import { getMenuItems } from '@/lib/menu-utils'
+import { notionViews } from '@/lib/notion-views'
 
 export const getStaticProps = async () => {
   try {
@@ -31,10 +29,5 @@ export const getStaticProps = async () => {
 }
 
 export default function NotionDomainPage(props) {
-  return (
-    <>
-      {/* NotionViewTabsは削除 - ヘッダーメニューと重複するため */}
-      <NotionPage {...props} />
-    </>
-  )
+  return <NotionPage {...props} />
 }
