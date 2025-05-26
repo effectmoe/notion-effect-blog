@@ -14,7 +14,7 @@ export function getMenuItemsFromNotion(recordMap: ExtendedRecordMap): ViewTab[] 
   try {
     // 基本のすべて表示タブ
     const tabs: ViewTab[] = [
-      { id: 'all', name: 'すべて', path: '/' }
+      { id: 'all', name: 'すべて', path: '/', pageId: 'all' }
     ]
     
     // コレクションを探す（カフェキネシコンテンツDB）
@@ -81,6 +81,6 @@ export function getMenuItemsFromNotion(recordMap: ExtendedRecordMap): ViewTab[] 
     return tabs
   } catch (error) {
     console.error('Error extracting menu items from Notion:', error)
-    return [{ id: 'all', name: 'すべて', path: '/' }]
+    return [{ id: 'all', name: 'すべて', path: '/', pageId: 'all' }]
   }
 }
