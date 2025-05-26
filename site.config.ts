@@ -2,16 +2,16 @@ import { siteConfig } from './lib/site-config'
 
 export default siteConfig({
   // the site's root Notion page (required)
-  rootNotionPageId: '1ffb802cb0c680d29309fff2b4831205',
+  rootNotionPageId: '3e7769818f7a4ddfa9c19e03d2aadbf2',
 
   // if you want to restrict pages to a single notion workspace (optional)
   // (this should be a Notion ID; see the docs for how to extract this)
   rootNotionSpaceId: null,
 
   // basic site info (required)
-  name: 'カフェキネシ',
-  domain: 'nextjs-notion-starter-kit.transitivebullsh.it',
-  author: '©cafekinesi',
+  name: 'Notion Effect Blog',
+  domain: 'notion.effect.moe',
+  author: 'EFFEC TCo., Ltd.',
 
   // open graph metadata (optional)
   description: 'カフェで出来るキネシオロジー',
