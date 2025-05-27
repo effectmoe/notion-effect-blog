@@ -7,13 +7,20 @@ const withBundleAnalyzer = bundleAnalyzer({
 })
 
 export default withBundleAnalyzer({
+  // basePathの追加（最重要）
+  basePath: '/blog',
+  trailingSlash: true,
+  
   eslint: {
     ignoreDuringBuilds: true, // ビルド時のESLintエラーを無視
   },
+  
   experimental: {
     webpackBuildWorker: true,
   },
+  
   staticPageGenerationTimeout: 300,
+  
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'www.notion.so' },
@@ -42,5 +49,11 @@ export default withBundleAnalyzer({
   },
 
   // See https://react-tweet.vercel.app/next#troubleshooting
-  transpilePackages: ['react-tweet']
+  transpilePackages: ['react-tweet'],
+  
+  // 環境変数の設定（必要に応じて）
+  env: {
+    NOTION_TOKEN: process.env.NOTION_TOKEN,
+    NOTION_DATABASE_ID: process.env.NOTION_DATABASE_ID,
+  }
 })
