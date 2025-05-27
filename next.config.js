@@ -8,8 +8,8 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 export default withBundleAnalyzer({
   // basePathの追加（最重要）
-  basePath: '/blog',
-  trailingSlash: true,
+  // basePath: '/blog',
+  // trailingSlash: true,
   
   eslint: {
     ignoreDuringBuilds: true, // ビルド時のESLintエラーを無視
