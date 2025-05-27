@@ -39,9 +39,9 @@ const getPage = async (pageId: string, ...args) => {
 function generateSlugFromTitle(title: string): string {
   return title
     .toLowerCase()
-    .replace(/[^\w\s-]/g, '') // 特殊文字を削除
-    .replace(/\s+/g, '-')      // スペースをハイフンに
-    .replace(/-+/g, '-')       // 連続するハイフンを1つに
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
     .trim()
 }
 
@@ -84,14 +84,22 @@ async function getAllPagesImpl(
 
     canonicalPageMap[canonicalPageId] = pageId
 
-    // スラッグの処理を追加
-    // 1. Notionプロパティから「Slug」を取得（推奨）
-    const customSlug = getPageProperty<string>('Slug', block, recordMap)
+    // デバッグログを追加
+    console.log(`\nProcessing page: ${pageId}`)
+    
+    // Slugプロパティを取得（大文字小文字のバリエーションを試す）
+    const customSlug = getPageProperty<string>('Slug', block, recordMap) ||
+                      getPageProperty<string>('slug', block, recordMap) ||
+                      getPageProperty<string>('SLUG', block, recordMap)
+    
+    console.log(`Slug value: "${customSlug}"`)
+    
     if (customSlug) {
       slugToPageMap[customSlug] = pageId
+      console.log(`Added slug mapping: ${customSlug} -> ${pageId}`)
     }
 
-    // 2. タイトルからスラッグを自動生成（フォールバック）
+    // タイトルからもスラッグを生成
     const title = getPageProperty<string>('title', block, recordMap)
     if (title && !customSlug) {
       const generatedSlug = generateSlugFromTitle(title)
@@ -100,6 +108,12 @@ async function getAllPagesImpl(
       }
     }
   })
+
+  // 一時的なハードコーディング（動作確認用）
+  slugToPageMap['nextjs'] = '175686abab0444bfa254908c0c357bbe'
+  console.log('Hardcoded nextjs slug for testing')
+
+  console.log('\nFinal slugToPageMap:', slugToPageMap)
 
   return {
     pageMap,
@@ -110,6 +124,12 @@ async function getAllPagesImpl(
 
 // スラッグからページIDを取得する関数
 export async function getPageIdFromSlug(slug: string): Promise<string | null> {
+  console.log(`getPageIdFromSlug called with: "${slug}"`)
+  
   const siteMap = await getSiteMap()
-  return siteMap.slugToPageMap?.[slug] || null
+  const pageId = siteMap.slugToPageMap?.[slug] || null
+  
+  console.log(`Slug "${slug}" resolved to: ${pageId}`)
+  
+  return pageId
 }

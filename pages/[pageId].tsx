@@ -11,14 +11,19 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
   context
 ) => {
   const rawPageId = context.params.pageId as string
+  
+  console.log(`\n[pageId].tsx - Requested: ${rawPageId}`)
 
   try {
     // まずスラッグとして解決を試みる
     let actualPageId = await getPageIdFromSlug(rawPageId)
     
-    // スラッグが見つからない場合は、pageIdとして扱う（後方互換性）
+    // スラッグが見つからない場合は、pageIdとして扱う
     if (!actualPageId) {
+      console.log(`No slug found for "${rawPageId}", using as pageId`)
       actualPageId = rawPageId
+    } else {
+      console.log(`Slug "${rawPageId}" resolved to pageId: ${actualPageId}`)
     }
     
     const props = await resolveNotionPage(domain, actualPageId)
@@ -36,9 +41,6 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
     }
   } catch (err) {
     console.error('page error', domain, rawPageId, err)
-
-    // we don't want to publish the error version of this page, so
-    // let next.js know explicitly that incremental SSG failed
     throw err
   }
 }
