@@ -34,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 }
 
 const createSitemap = (siteMap: SiteMap, menuItems: any[] = []) => {
-  const domain = process.env.NEXT_PUBLIC_DOMAIN || host
+  const domain = process.env.NEXT_PUBLIC_DOMAIN || 'https://notion.effect.moe/blog'
   
   // 静的ページ
   const staticPages = [

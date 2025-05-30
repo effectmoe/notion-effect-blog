@@ -1,0 +1,34 @@
+{
+  "redirects": [
+    {
+      "source": "/all-in-one/",
+      "destination": "/all-in-one",
+      "permanent": false
+    },
+    {
+      "source": "/internal-tools/",
+      "destination": "/integrations",
+      "permanent": false
+    },
+    {
+      "source": "/api-integration/",
+      "destination": "/api-automation",
+      "permanent": false
+    },
+    {
+      "source": "/workflow-automation/",
+      "destination": "/workflow-automation",
+      "permanent": false
+    },
+    {
+      "source": "/multiview-database/",
+      "destination": "/data-analysis",
+      "permanent": false
+    },
+    {
+      "source": "/security-access/",
+      "destination": "/access-management",
+      "permanent": false
+    }
+  ]
+}
