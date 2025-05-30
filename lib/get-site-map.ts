@@ -37,12 +37,15 @@ const getPage = async (pageId: string, ...args) => {
 
 // タイトルからスラッグを生成する関数
 function generateSlugFromTitle(title: string): string {
+  if (!title) return ''
+  
+  // 日本語のタイトルをローマ字に変換する処理が必要な場合はここに追加
+  // 今回はシンプルに英数字とハイフンのみを残す
   return title
     .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf\u3400-\u4dbf]/g, '-')
     .replace(/-+/g, '-')
-    .trim()
+    .replace(/^-|-$/g, '')
 }
 
 async function getAllPagesImpl(
@@ -109,9 +112,28 @@ async function getAllPagesImpl(
     }
   })
 
-  // 一時的なハードコーディング（動作確認用）
-  slugToPageMap['nextjs'] = '175686abab0444bfa254908c0c357bbe'
-  console.log('Hardcoded nextjs slug for testing')
+  // フッターメニュー用のスラッグマッピングを追加
+  // TODO: 実際のNotionページIDに置き換える必要があります
+  const footerMenuMappings = {
+    'notion-features': 'NOTION_FEATURES_PAGE_ID',
+    'all-in-one': 'ALL_IN_ONE_PAGE_ID',
+    'integrations': 'INTEGRATIONS_PAGE_ID',
+    'api-automation': 'API_AUTOMATION_PAGE_ID',
+    'workflow-automation': 'WORKFLOW_AUTOMATION_PAGE_ID',
+    'data-analysis': 'DATA_ANALYSIS_PAGE_ID',
+    'access-management': 'ACCESS_MANAGEMENT_PAGE_ID'
+  }
+
+  // pageUrlOverridesから実際のマッピングを追加
+  if (config.pageUrlOverrides) {
+    Object.entries(config.pageUrlOverrides).forEach(([url, pageId]) => {
+      const slug = url.replace(/^\//, '')
+      if (slug && pageId) {
+        slugToPageMap[slug] = pageId
+        console.log(`Added override mapping: ${slug} -> ${pageId}`)
+      }
+    })
+  }
 
   console.log('\nFinal slugToPageMap:', slugToPageMap)
 

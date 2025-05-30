@@ -15,6 +15,7 @@ import * as config from '@/lib/config'
 import { useDarkMode } from '@/lib/use-dark-mode'
 
 import styles from './styles.module.css'
+import { FooterMenu } from './FooterMenu'
 
 // TODO: merge the data and icons from PageSocial with the social links in Footer
 
@@ -37,6 +38,7 @@ export function FooterImpl() {
 
   return (
     <footer className={styles.footer}>
+      <FooterMenu />
       <div className={styles.copyright}>
         Copyright {currentYear} {config.author}
       </div>

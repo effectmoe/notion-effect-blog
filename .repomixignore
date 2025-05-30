@@ -1,0 +1,70 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Next.js build output
+.next/
+out/
+build/
+
+# Environment files
+.env*
+!.env.example
+
+# Version control
+.git/
+.github/
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+*.temp
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Backup files
+*.backup
+*.bak
+*.jpg
+*.png
+*.gif
+
+# Cache
+.cache/
+.eslintcache
+.prettierCache
+
+# Build files
+dist/
+
+# Large font files
+lib/fonts/
+**/fonts/*.ts
+**/fonts/*.js
+
+# Duplicate files
+*のコピー*

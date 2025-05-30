@@ -49,7 +49,16 @@ export default siteConfig({
   //   '/foo': '067dd719a912471ea9a3ac10710e7fdf',
   //   '/bar': '0be6efce9daf42688f65c76b89f8eb27'
   // }
-  pageUrlOverrides: null,
+  pageUrlOverrides: {
+    // TODO: 実際のNotionページIDに置き換えてください
+    '/notion-features': 'NOTION_FEATURES_PAGE_ID',
+    '/all-in-one': 'ALL_IN_ONE_PAGE_ID', 
+    '/integrations': 'INTEGRATIONS_PAGE_ID',
+    '/api-automation': 'API_AUTOMATION_PAGE_ID',
+    '/workflow-automation': 'WORKFLOW_AUTOMATION_PAGE_ID',
+    '/data-analysis': 'DATA_ANALYSIS_PAGE_ID',
+    '/access-management': 'ACCESS_MANAGEMENT_PAGE_ID'
+  },
 
   // whether to use the default notion navigation style or a custom one with links to
   // important pages. To use `navigationLinks`, set `navigationStyle` to `custom`.

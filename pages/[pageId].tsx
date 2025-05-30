@@ -41,7 +41,21 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
     }
   } catch (err) {
     console.error('page error', domain, rawPageId, err)
-    throw err
+    
+    // 404ページのためのプロパティを返す
+    return {
+      props: {
+        site: null,
+        recordMap: null,
+        error: {
+          statusCode: 404,
+          message: 'Page not found'
+        },
+        pageId: rawPageId,
+        menuItems: await getMenuItems()
+      },
+      revalidate: 10
+    }
   }
 }
 

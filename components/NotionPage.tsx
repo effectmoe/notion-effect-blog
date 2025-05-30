@@ -12,6 +12,7 @@ import {
   NotionRenderer,
   useNotionContext
 } from 'react-notion-x'
+import { CustomNotionRenderer } from './CustomNotionRenderer'
 import { EmbeddedTweet, TweetNotFound, TweetSkeleton } from 'react-tweet'
 import { useSearchParam } from 'react-use'
 
@@ -326,7 +327,7 @@ export function NotionPage({
       <Header menuItems={(menuItems && menuItems.length > 0) ? menuItems : navigationMenuItems} />
 
       <div className={styles.notionPageContainer}>
-        <NotionRenderer
+        <CustomNotionRenderer
           bodyClassName={cs(
             styles.notion,
             'no-notion-tabs',
