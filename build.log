@@ -1,0 +1,177 @@
+
+> nextjs-notion-starter-kit@2.0.0 build
+> next build
+
+ ⚠ You are using a non-standard "NODE_ENV" value in your environment. This creates inconsistencies in the project and is strongly advised against. Read more: https://nextjs.org/docs/messages/non-standard-node-env
+   ▲ Next.js 15.3.2
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     ✓ webpackBuildWorker
+
+   Skipping linting
+   Checking validity of types ...
+   Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (699kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ⚠ Compiled with warnings in 0ms
+
+./node_modules/next/dist/esm/server/server-utils.js
+A Node.js module is loaded ('url' at line 1) which is not supported in the Edge Runtime.
+Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime
+
+Import trace for requested module:
+./node_modules/next/dist/esm/server/server-utils.js
+
+ ✓ Compiled successfully in 1000ms
+   Collecting page data ...
+(node:14855) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14858) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14853) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14861) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14864) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14857) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14860) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14862) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14852) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14851) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14854) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14859) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14865) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+(node:14856) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14863) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+
+notion getPage 3e7769818f7a4ddfa9c19e03d2aadbf2
+
+notion getPage 175686abab0444bfa254908c0c357bbe
+
+notion getPage b306589c28d84b33a9a7750a3aac33df
+
+Processing page: 3e776981-8f7a-4ddf-a9c1-9e03d2aadbf2
+Slug value: "null"
+
+Processing page: 175686ab-ab04-44bf-a254-908c0c357bbe
+Slug value: "blog/nextjs"
+Added slug mapping: blog/nextjs -> 175686ab-ab04-44bf-a254-908c0c357bbe
+
+Processing page: b306589c-28d8-4b33-a9a7-750a3aac33df
+Slug value: "blog/examlpe"
+Added slug mapping: blog/examlpe -> b306589c-28d8-4b33-a9a7-750a3aac33df
+Added footer menu mapping: notion-features -> 3e7769818f7a4ddfa9c19e03d2aadbf2
+Added footer menu mapping: all-in-one -> 3e7769818f7a4ddfa9c19e03d2aadbf2
+Added footer menu mapping: integrations -> 3e7769818f7a4ddfa9c19e03d2aadbf2
+Added footer menu mapping: api-automation -> 3e7769818f7a4ddfa9c19e03d2aadbf2
+Added footer menu mapping: workflow-automation -> 3e7769818f7a4ddfa9c19e03d2aadbf2
+Added footer menu mapping: data-analysis -> 3e7769818f7a4ddfa9c19e03d2aadbf2
+Added footer menu mapping: access-management -> 3e7769818f7a4ddfa9c19e03d2aadbf2
+Added override mapping: notion-features -> 3e7769818f7a4ddfa9c19e03d2aadbf2
+Added override mapping: all-in-one -> 3e7769818f7a4ddfa9c19e03d2aadbf2
+Added override mapping: integrations -> 3e7769818f7a4ddfa9c19e03d2aadbf2
+Added override mapping: api-automation -> 3e7769818f7a4ddfa9c19e03d2aadbf2
+Added override mapping: workflow-automation -> 3e7769818f7a4ddfa9c19e03d2aadbf2
+Added override mapping: data-analysis -> 3e7769818f7a4ddfa9c19e03d2aadbf2
+Added override mapping: access-management -> 3e7769818f7a4ddfa9c19e03d2aadbf2
+
+Final slugToPageMap: {
+  'blog/nextjs': '175686ab-ab04-44bf-a254-908c0c357bbe',
+  'blog/examlpe': 'b306589c-28d8-4b33-a9a7-750a3aac33df',
+  'notion-features': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+  'all-in-one': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+  integrations: '3e7769818f7a4ddfa9c19e03d2aadbf2',
+  'api-automation': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+  'workflow-automation': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+  'data-analysis': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+  'access-management': '3e7769818f7a4ddfa9c19e03d2aadbf2'
+}
+Generated paths: 4 paths
+Warning: You have opted-out of Automatic Static Optimization due to `getInitialProps` in `pages/_app`. This does not opt-out pages with `getStaticProps`
+Read more: https://nextjs.org/docs/messages/opt-out-auto-static-optimization
+
+   Generating static pages (0/15) ...
+(node:14868) [DEP0128] DeprecationWarning: Invalid 'main' field in '/Users/tonychustudio/Documents/notion-effect-blog/node_modules/@react-icons/all-files/package.json' of 'lib'. Please either fix that or report it to the module author
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Notion API設定状況:
+- NOTION_API_BASE_URL: 未設定（デフォルト使用）
+- NOTION_API_SECRET: 設定済み
+{
+  domain: 'notion.effect.moe',
+  name: 'Notion Effect Blog',
+  rootNotionPageId: '3e7769818f7a4ddfa9c19e03d2aadbf2',
+  rootNotionSpaceId: null,
+  description: 'カフェで出来るキネシオロジー'
+}
+Error: NextRouter was not mounted. https://nextjs.org/docs/messages/next-router-not-mounted
+    at h (.next/server/chunks/342.js:1:60999)
+    at h (.next/server/chunks/386.js:1:2221)
+Error occurred prerendering page "/notion-features". Read more: https://nextjs.org/docs/messages/prerender-error
+Error: NextRouter was not mounted. https://nextjs.org/docs/messages/next-router-not-mounted
+    at h (/Users/tonychustudio/Documents/notion-effect-blog/.next/server/chunks/342.js:1:60999)
+    at h (/Users/tonychustudio/Documents/notion-effect-blog/.next/server/chunks/386.js:1:2221)
+    at renderWithHooks (/Users/tonychustudio/Documents/notion-effect-blog/node_modules/react-dom/cjs/react-dom-server.browser.development.js:5658:16)
+    at renderIndeterminateComponent (/Users/tonychustudio/Documents/notion-effect-blog/node_modules/react-dom/cjs/react-dom-server.browser.development.js:5732:15)
+    at renderElement (/Users/tonychustudio/Documents/notion-effect-blog/node_modules/react-dom/cjs/react-dom-server.browser.development.js:5957:7)
+    at renderNodeDestructiveImpl (/Users/tonychustudio/Documents/notion-effect-blog/node_modules/react-dom/cjs/react-dom-server.browser.development.js:6115:11)
+    at renderNodeDestructive (/Users/tonychustudio/Documents/notion-effect-blog/node_modules/react-dom/cjs/react-dom-server.browser.development.js:6087:14)
+    at renderIndeterminateComponent (/Users/tonychustudio/Documents/notion-effect-blog/node_modules/react-dom/cjs/react-dom-server.browser.development.js:5786:7)
+    at renderElement (/Users/tonychustudio/Documents/notion-effect-blog/node_modules/react-dom/cjs/react-dom-server.browser.development.js:5957:7)
+    at renderNodeDestructiveImpl (/Users/tonychustudio/Documents/notion-effect-blog/node_modules/react-dom/cjs/react-dom-server.browser.development.js:6115:11)
+Export encountered an error on /notion-features, exiting the build.
+ ⨯ Next.js build worker exited with code: 1 and signal: null
