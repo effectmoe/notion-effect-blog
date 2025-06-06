@@ -14,7 +14,7 @@ export const FontStyler = () => {
     const loadSettings = async () => {
       try {
         // 最初にAPIから設定を読み込もうとする
-        const response = await fetch('/api/font-settings');
+        const response = await fetch('/blog/api/font-settings');
         
         if (response.ok) {
           const data = await response.json();

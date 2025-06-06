@@ -59,7 +59,7 @@ const FontSettingsPanel = () => {
   const saveSettings = async () => {
     try {
       // APIを使ってサーバーに保存
-      const response = await fetch('/api/font-settings', {
+      const response = await fetch('/blog/api/font-settings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -186,7 +186,7 @@ const FontSettingsPanel = () => {
     // サーバーから設定を読み込む
     const fetchSettings = async () => {
       try {
-        const response = await fetch('/api/font-settings');
+        const response = await fetch('/blog/api/font-settings');
         if (response.ok) {
           const data = await response.json();
           setSettings(data);
