@@ -183,8 +183,26 @@ function cleanPageUrlMap(
     label: string
   }
 ): PageUrlOverridesMap {
+  // Log the raw input for debugging
+  if (process.env.NODE_ENV !== 'production' || process.env.VERCEL) {
+    console.log(`[cleanPageUrlMap] Processing ${label}:`, JSON.stringify(pageUrlMap, null, 2))
+  }
+  
   return Object.keys(pageUrlMap).reduce((acc, uri) => {
     const pageId = pageUrlMap[uri]
+    
+    // Add detailed logging for debugging
+    if (process.env.NODE_ENV !== 'production' || process.env.VERCEL) {
+      console.log(`[cleanPageUrlMap] Processing URI: ${uri}, pageId: ${pageId}`)
+    }
+    
+    // Check if pageId looks like an environment variable name
+    if (typeof pageId === 'string' && pageId.includes('_PAGE_ID') && !pageId.includes('-')) {
+      console.error(`ERROR: ${label} contains what appears to be an unresolved environment variable: "${uri}" -> "${pageId}"`)
+      console.error('This suggests that environment variables are not being properly resolved.')
+      throw new Error(`Invalid ${label} page id "${pageId}" - appears to be an unresolved environment variable`)
+    }
+    
     const uuid = parsePageId(pageId, { uuid: false })
 
     if (!uuid) {
