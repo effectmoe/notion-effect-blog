@@ -4,7 +4,7 @@ import { resolveNotionPage } from '@/lib/resolve-notion-page'
 import { getMenuItems } from '@/lib/menu-utils'
 import { notionViews } from '@/lib/notion-views'
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   try {
     const props = await resolveNotionPage(domain)
     
@@ -16,8 +16,7 @@ export const getStaticProps = async () => {
       props: {
         ...props,
         menuItems
-      }, 
-      revalidate: 10 
+      }
     }
   } catch (err) {
     console.error('page error', domain, err)

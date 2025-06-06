@@ -10,10 +10,7 @@ let siteConfigOverrides: SiteConfig
 
 try {
   if (process.env.NEXT_PUBLIC_SITE_CONFIG) {
-    console.log('[get-config-value] NEXT_PUBLIC_SITE_CONFIG is set, parsing...')
-    console.log('[get-config-value] Raw value:', process.env.NEXT_PUBLIC_SITE_CONFIG)
     siteConfigOverrides = JSON.parse(process.env.NEXT_PUBLIC_SITE_CONFIG)
-    console.log('[get-config-value] Parsed overrides:', JSON.stringify(siteConfigOverrides, null, 2))
   }
 } catch (err) {
   console.error('Invalid config "NEXT_PUBLIC_SITE_CONFIG" failed to parse')
@@ -23,11 +20,6 @@ try {
 const siteConfig: SiteConfig = {
   ...rawSiteConfig,
   ...siteConfigOverrides
-}
-
-// Log the final config if in development or on Vercel
-if (process.env.NODE_ENV !== 'production' || process.env.VERCEL) {
-  console.log('[get-config-value] Final siteConfig.pageUrlOverrides:', JSON.stringify(siteConfig.pageUrlOverrides, null, 2))
 }
 
 export function getSiteConfig<T>(key: string, defaultValue?: T): T {

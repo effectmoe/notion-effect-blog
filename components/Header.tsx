@@ -127,6 +127,10 @@ export function HeaderImpl({ menuItems = DEFAULT_MENU_ITEMS }: HeaderProps) {
 
   // 現在のページに基づいてアクティブなメニュー項目を判断
   const isActive = (url: string) => {
+    // サーバーサイドレンダリング中はrouterが利用できない可能性がある
+    if (!router || !router.pathname) {
+      return false
+    }
     if (url === '/' && router.pathname === '/') {
       return true
     }

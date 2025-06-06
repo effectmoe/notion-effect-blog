@@ -1,4 +1,4 @@
-import { type GetStaticProps } from 'next'
+import { type GetServerSideProps } from 'next'
 
 import { NotionPage } from '@/components/NotionPage'
 import { domain, isDev } from '@/lib/config'
@@ -7,7 +7,8 @@ import { resolveNotionPage } from '@/lib/resolve-notion-page'
 import { getMenuItems } from '@/lib/menu-utils'
 import { type PageProps, type Params } from '@/lib/types'
 
-export const getStaticProps: GetStaticProps<PageProps, Params> = async (
+// 一時的にgetServerSidePropsに変更してRouter問題を回避
+export const getServerSideProps: GetServerSideProps<PageProps, Params> = async (
   context
 ) => {
   const rawPageId = context.params.pageId as string
@@ -59,58 +60,7 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
   }
 }
 
-export async function getStaticPaths() {
-  if (isDev) {
-    return {
-      paths: [],
-      fallback: true
-    }
-  }
-
-  const siteMap = await getSiteMap()
-
-  // Static pages that should be excluded from dynamic route generation
-  const excludedPaths = [
-    'access-management',
-    'notion-features',
-    'all-in-one',
-    'integrations',
-    'api-automation',
-    'workflow-automation',
-    'data-analysis'
-  ]
-
-  // ページIDとスラッグ両方のパスを生成
-  const paths = []
-  
-  // 1. ページIDでのパス
-  Object.keys(siteMap.canonicalPageMap).forEach((pageId) => {
-    if (!excludedPaths.includes(pageId)) {
-      paths.push({
-        params: { pageId }
-      })
-    }
-  })
-  
-  // 2. スラッグでのパス（slugToPageMapが存在する場合）
-  if (siteMap.slugToPageMap) {
-    Object.keys(siteMap.slugToPageMap).forEach((slug) => {
-      if (!excludedPaths.includes(slug)) {
-        paths.push({
-          params: { pageId: slug }
-        })
-      }
-    })
-  }
-
-  const staticPaths = {
-    paths,
-    fallback: true
-  }
-
-  console.log('Generated paths:', staticPaths.paths.length, 'paths')
-  return staticPaths
-}
+// getStaticPathsは不要なので削除
 
 export default function NotionDomainDynamicPage(props) {
   return <NotionPage {...props} />

@@ -10,7 +10,7 @@ type NotionPageWithMenuProps = {
 
 const NotionPageWithMenu: React.FC<NotionPageWithMenuProps> = (props) => {
   const router = useRouter();
-  const currentPath = router.asPath;
+  const currentPath = router?.asPath || '/';
   
   return (
     <div className={styles.container}>

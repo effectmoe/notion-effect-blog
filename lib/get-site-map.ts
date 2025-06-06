@@ -112,22 +112,7 @@ async function getAllPagesImpl(
     }
   })
 
-  // フッターメニュー用のスラッグマッピングを追加
-  const footerMenuMappings = {
-    'notion-features': '3e7769818f7a4ddfa9c19e03d2aadbf2',
-    'all-in-one': '3e7769818f7a4ddfa9c19e03d2aadbf2',
-    'integrations': '3e7769818f7a4ddfa9c19e03d2aadbf2',
-    'api-automation': '3e7769818f7a4ddfa9c19e03d2aadbf2',
-    'workflow-automation': '3e7769818f7a4ddfa9c19e03d2aadbf2',
-    'data-analysis': '3e7769818f7a4ddfa9c19e03d2aadbf2',
-    'access-management': '3e7769818f7a4ddfa9c19e03d2aadbf2'
-  }
-  
-  // フッターメニューのマッピングを追加
-  Object.entries(footerMenuMappings).forEach(([slug, pageId]) => {
-    slugToPageMap[slug] = pageId
-    console.log(`Added footer menu mapping: ${slug} -> ${pageId}`)
-  })
+  // フッターメニュー用のスラッグマッピングは一時的に無効化
 
   // pageUrlOverridesから実際のマッピングを追加
   if (config.pageUrlOverrides) {
