@@ -7,7 +7,6 @@ import { resolveNotionPage } from '@/lib/resolve-notion-page'
 import { getMenuItems } from '@/lib/menu-utils'
 import { type PageProps, type Params } from '@/lib/types'
 
-// 一時的にgetServerSidePropsに変更してRouter問題を回避
 export const getServerSideProps: GetServerSideProps<PageProps, Params> = async (
   context
 ) => {
@@ -37,8 +36,7 @@ export const getServerSideProps: GetServerSideProps<PageProps, Params> = async (
       props: {
         ...props,
         menuItems
-      }, 
-      revalidate: 10 
+      }
     }
   } catch (err) {
     console.error('page error', domain, rawPageId, err)
@@ -54,8 +52,7 @@ export const getServerSideProps: GetServerSideProps<PageProps, Params> = async (
         },
         pageId: rawPageId,
         menuItems: await getMenuItems()
-      },
-      revalidate: 10
+      }
     }
   }
 }

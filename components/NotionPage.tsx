@@ -268,7 +268,13 @@ export function NotionPage({
 
   const footer = React.useMemo(() => <Footer />, [])
 
-  if (router.isFallback) {
+  // Check if we're on the client side before accessing router
+  const [mounted, setMounted] = React.useState(false)
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (mounted && router.isFallback) {
     return <Loading />
   }
 
