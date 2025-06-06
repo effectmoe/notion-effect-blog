@@ -2,7 +2,8 @@ import { api, host } from './config'
 
 export function getSocialImageUrl(pageId: string) {
   try {
-    const url = new URL(api.getSocialImage, host)
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '/blog'
+    const url = new URL(`${basePath}${api.getSocialImage}`, host)
 
     if (pageId) {
       url.searchParams.set('id', pageId)
