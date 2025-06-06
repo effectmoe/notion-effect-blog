@@ -34,7 +34,13 @@ export const CustomNotionRenderer: React.FC<CustomNotionRendererProps> = ({
       }
       
       // mapPageUrlを使用してURLを生成
-      const mappedUrl = mapPageUrl ? mapPageUrl(pageId.replace(/-/g, '')) : `/${pageId.replace(/-/g, '')}`
+      let mappedUrl = mapPageUrl ? mapPageUrl(pageId.replace(/-/g, '')) : `/${pageId.replace(/-/g, '')}`
+      
+      // basePathが含まれていない場合は追加
+      const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+      if (mappedUrl && !mappedUrl.startsWith(basePath) && !mappedUrl.startsWith('http')) {
+        mappedUrl = `${basePath}${mappedUrl}`
+      }
       
       return (
         <Link href={mappedUrl} {...linkProps}>

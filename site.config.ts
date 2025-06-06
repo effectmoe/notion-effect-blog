@@ -2,7 +2,7 @@ import { siteConfig } from './lib/site-config'
 
 export default siteConfig({
   // the site's root Notion page (required)
-  rootNotionPageId: '3e7769818f7a4ddfa9c19e03d2aadbf2',
+  rootNotionPageId: process.env.NOTION_PAGE_ID || '3e7769818f7a4ddfa9c19e03d2aadbf2',
 
   // if you want to restrict pages to a single notion workspace (optional)
   // (this should be a Notion ID; see the docs for how to extract this)
@@ -50,14 +50,14 @@ export default siteConfig({
   //   '/bar': '0be6efce9daf42688f65c76b89f8eb27'
   // }
   pageUrlOverrides: {
-    // TODO: 実際のNotionページIDに置き換えてください
-    '/notion-features': 'NOTION_FEATURES_PAGE_ID',
-    '/all-in-one': 'ALL_IN_ONE_PAGE_ID', 
-    '/integrations': 'INTEGRATIONS_PAGE_ID',
-    '/api-automation': 'API_AUTOMATION_PAGE_ID',
-    '/workflow-automation': 'WORKFLOW_AUTOMATION_PAGE_ID',
-    '/data-analysis': 'DATA_ANALYSIS_PAGE_ID',
-    '/access-management': 'ACCESS_MANAGEMENT_PAGE_ID'
+    // ルートページIDを使用（一時的に）
+    '/notion-features': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+    '/all-in-one': '3e7769818f7a4ddfa9c19e03d2aadbf2', 
+    '/integrations': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+    '/api-automation': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+    '/workflow-automation': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+    '/data-analysis': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+    '/access-management': '3e7769818f7a4ddfa9c19e03d2aadbf2'
   },
 
   // whether to use the default notion navigation style or a custom one with links to

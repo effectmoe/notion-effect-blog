@@ -13,12 +13,13 @@ export const mapPageUrl =
   (site: Site, recordMap: ExtendedRecordMap, searchParams: URLSearchParams) =>
   (pageId = '') => {
     const pageUuid = parsePageId(pageId, { uuid: true })
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
     if (uuidToId(pageUuid) === site.rootNotionPageId) {
-      return createUrl('/', searchParams)
+      return createUrl(`${basePath}/`, searchParams)
     } else {
       return createUrl(
-        `/${getCanonicalPageId(pageUuid, recordMap, { uuid })}`,
+        `${basePath}/${getCanonicalPageId(pageUuid, recordMap, { uuid })}`,
         searchParams
       )
     }
@@ -28,11 +29,12 @@ export const getCanonicalPageUrl =
   (site: Site, recordMap: ExtendedRecordMap) =>
   (pageId = '') => {
     const pageUuid = parsePageId(pageId, { uuid: true })
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
     if (uuidToId(pageId) === site.rootNotionPageId) {
-      return `https://${site.domain}`
+      return `https://${site.domain}${basePath}`
     } else {
-      return `https://${site.domain}/${getCanonicalPageId(pageUuid, recordMap, {
+      return `https://${site.domain}${basePath}/${getCanonicalPageId(pageUuid, recordMap, {
         uuid
       })}`
     }

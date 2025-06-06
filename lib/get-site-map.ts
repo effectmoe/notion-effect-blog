@@ -113,16 +113,21 @@ async function getAllPagesImpl(
   })
 
   // フッターメニュー用のスラッグマッピングを追加
-  // TODO: 実際のNotionページIDに置き換える必要があります
   const footerMenuMappings = {
-    'notion-features': 'NOTION_FEATURES_PAGE_ID',
-    'all-in-one': 'ALL_IN_ONE_PAGE_ID',
-    'integrations': 'INTEGRATIONS_PAGE_ID',
-    'api-automation': 'API_AUTOMATION_PAGE_ID',
-    'workflow-automation': 'WORKFLOW_AUTOMATION_PAGE_ID',
-    'data-analysis': 'DATA_ANALYSIS_PAGE_ID',
-    'access-management': 'ACCESS_MANAGEMENT_PAGE_ID'
+    'notion-features': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+    'all-in-one': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+    'integrations': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+    'api-automation': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+    'workflow-automation': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+    'data-analysis': '3e7769818f7a4ddfa9c19e03d2aadbf2',
+    'access-management': '3e7769818f7a4ddfa9c19e03d2aadbf2'
   }
+  
+  // フッターメニューのマッピングを追加
+  Object.entries(footerMenuMappings).forEach(([slug, pageId]) => {
+    slugToPageMap[slug] = pageId
+    console.log(`Added footer menu mapping: ${slug} -> ${pageId}`)
+  })
 
   // pageUrlOverridesから実際のマッピングを追加
   if (config.pageUrlOverrides) {

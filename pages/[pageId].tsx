@@ -69,22 +69,37 @@ export async function getStaticPaths() {
 
   const siteMap = await getSiteMap()
 
+  // Static pages that should be excluded from dynamic route generation
+  const excludedPaths = [
+    'access-management',
+    'notion-features',
+    'all-in-one',
+    'integrations',
+    'api-automation',
+    'workflow-automation',
+    'data-analysis'
+  ]
+
   // ページIDとスラッグ両方のパスを生成
   const paths = []
   
   // 1. ページIDでのパス
   Object.keys(siteMap.canonicalPageMap).forEach((pageId) => {
-    paths.push({
-      params: { pageId }
-    })
+    if (!excludedPaths.includes(pageId)) {
+      paths.push({
+        params: { pageId }
+      })
+    }
   })
   
   // 2. スラッグでのパス（slugToPageMapが存在する場合）
   if (siteMap.slugToPageMap) {
     Object.keys(siteMap.slugToPageMap).forEach((slug) => {
-      paths.push({
-        params: { pageId: slug }
-      })
+      if (!excludedPaths.includes(slug)) {
+        paths.push({
+          params: { pageId: slug }
+        })
+      }
     })
   }
 
