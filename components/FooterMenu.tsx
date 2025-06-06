@@ -12,15 +12,14 @@ interface FooterMenuProps {
   menuItems?: FooterMenuItem[]
 }
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const defaultMenuItems: FooterMenuItem[] = [
-  { id: '1', title: 'Notion機能紹介', url: `${basePath}/notion-features` },
-  { id: '2', title: 'オールインワン情報管理', url: `${basePath}/all-in-one` },
-  { id: '3', title: '既存ツールとの連携', url: `${basePath}/integrations` },
-  { id: '4', title: 'API連携と自動化', url: `${basePath}/api-automation` },
-  { id: '5', title: '業務フロー自動化', url: `${basePath}/workflow-automation` },
-  { id: '6', title: '多角的データ分析', url: `${basePath}/data-analysis` },
-  { id: '7', title: 'セキュアなアクセス管理', url: `${basePath}/access-management` }
+  { id: '1', title: 'Notion機能紹介', url: '/notion-features' },
+  { id: '2', title: 'オールインワン情報管理', url: '/all-in-one' },
+  { id: '3', title: '既存ツールとの連携', url: '/integrations' },
+  { id: '4', title: 'API連携と自動化', url: '/api-automation' },
+  { id: '5', title: '業務フロー自動化', url: '/workflow-automation' },
+  { id: '6', title: '多角的データ分析', url: '/data-analysis' },
+  { id: '7', title: 'セキュアなアクセス管理', url: '/access-management' }
 ]
 
 export const FooterMenu: React.FC<FooterMenuProps> = ({ 
