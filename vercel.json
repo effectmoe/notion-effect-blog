@@ -1,36 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "/all-in-one/",
-      "destination": "/blog/all-in-one",
-      "permanent": false
-    },
-    {
-      "source": "/internal-tools/",
-      "destination": "/blog/integrations",
-      "permanent": false
-    },
-    {
-      "source": "/api-integration/",
-      "destination": "/blog/api-automation",
-      "permanent": false
-    },
-    {
-      "source": "/workflow-automation/",
-      "destination": "/blog/workflow-automation",
-      "permanent": false
-    },
-    {
-      "source": "/multiview-database/",
-      "destination": "/blog/data-analysis",
-      "permanent": false
-    },
-    {
-      "source": "/security-access/",
-      "destination": "/blog/access-management",
-      "permanent": false
-    }
-  ],
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
   "framework": "nextjs"
