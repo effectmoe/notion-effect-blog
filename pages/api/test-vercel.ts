@@ -9,7 +9,7 @@ export default async function handler(
     : 'http://localhost:3000'
   
   const environment = process.env.VERCEL ? 'vercel' : 'local'
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '/blog'
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
   
   res.status(200).json({
     status: 'ok',

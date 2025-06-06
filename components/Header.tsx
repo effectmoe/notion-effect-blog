@@ -71,7 +71,7 @@ export function HeaderImpl({ menuItems = DEFAULT_MENU_ITEMS }: HeaderProps) {
       console.log('検索リクエスト送信:', { query: searchQuery.trim() })
       
       // 公式Notion APIを使用した検索エンドポイントを使用する
-      const response = await fetch('/blog/api/direct-search', {
+      const response = await fetch('/api/direct-search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

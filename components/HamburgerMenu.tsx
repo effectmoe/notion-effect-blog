@@ -11,11 +11,11 @@ type MenuItem = {
 
 // 仮のメニュー項目（後でNotion DBから取得する内容に置き換え）
 const DEFAULT_MENU_ITEMS: MenuItem[] = [
-  { id: 'all', title: 'すべて', url: '/blog' },
-  { id: 'blog', title: 'ブログ', url: '/blog/blog' },
-  { id: 'website', title: 'Webサイト', url: '/blog/website' },
-  { id: 'profile', title: 'プロフィール', url: '/blog/profile' },
-  { id: 'latest', title: '新着順', url: '/blog/latest' }
+  { id: 'all', title: 'すべて', url: '/' },
+  { id: 'blog', title: 'ブログ', url: '/blog' },
+  { id: 'website', title: 'Webサイト', url: '/website' },
+  { id: 'profile', title: 'プロフィール', url: '/profile' },
+  { id: 'latest', title: '新着順', url: '/latest' }
 ];
 
 type HamburgerMenuProps = {
