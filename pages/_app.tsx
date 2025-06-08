@@ -18,6 +18,7 @@ import * as Fathom from 'fathom-client'
 import { useRouter } from 'next/router'
 import posthog from 'posthog-js'
 import * as React from 'react'
+import Script from 'next/script'
 
 import { bootstrap } from '@/lib/bootstrap-client'
 import {
@@ -33,6 +34,9 @@ import FontStyler from '@/components/FontStyler'
 if (!isServer) {
   bootstrap()
 }
+
+// Google Analytics ID
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
 // カスタムAppPropsの型定義を追加
 type CustomAppProps = AppProps & {
@@ -54,6 +58,13 @@ export default function App({ Component, pageProps }: CustomAppProps) {
       if (posthogId) {
         posthog.capture('$pageview')
       }
+
+      // Google Analytics page view
+      if (GA_ID && typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('config', GA_ID, {
+          page_path: window.location.pathname,
+        })
+      }
     }
 
     if (fathomId) {
@@ -74,6 +85,23 @@ export default function App({ Component, pageProps }: CustomAppProps) {
   // FontStylerコンポーネントを追加してフォントをカスタマイズ
   return (
     <>
+      {/* Google Analytics */}
+      {GA_ID && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_ID}');
+            `}
+          </Script>
+        </>
+      )}
       <FontStyler />
       <Component {...pageProps} />
     </>
